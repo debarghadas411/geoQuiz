@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="q_test">Who is Arnab Chaterjee?</string>
+    <string name="c_1">Astrologer</string>
+    <string name="c_2">Professor</string>
+    <string name="correct">Correct!!</string>
+    <string name="wrong">Also correct! he is multitalented after all!</string>
+</resources>
