@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -29,11 +30,18 @@ public class MainActivity extends AppCompatActivity {
             new Questions(R.string.Q10,true),
     };
     private int index=0;
+    private int score=0;
+    private String TAG="WIAC";
+    private String IND="INDEX";
+    private String SCORE= "SCORE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        if(savedInstanceState!=null){
+            index=savedInstanceState.getInt(IND);
+            index--;
+        }
         tv=(TextView)findViewById(R.id.tv);
         QChange();
         next=(Button)findViewById(R.id.b3);
@@ -67,24 +75,51 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void QChange() {
+
         if(index==10){
+            button1.setEnabled(false);
+            button2.setEnabled(false);
+            Toast.makeText(MainActivity.this,"You only know "+(score*100)/index+"% of Arnab ",Toast.LENGTH_LONG).show();
             //intent
             Intent k=new Intent(MainActivity.this,Main2Activity.class);
             startActivity(k);
         }
         else{
+            //button1.setEnabled(true);
+            //button2.setEnabled(true);
             int q=QBank[index++].getTextResId();
             tv.setText(q);
+            //button1.setEnabled(true);
+            //button2.setEnabled(true);
         }
     }
     private void ansCheck(boolean press){
         boolean ans=QBank[index-1].isAnswerTrue();
         if(press==ans){
             msgid=R.string.correct;
+            score++;
         }
         else{
             msgid=R.string.wrong;
         }
+
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(TAG,"in onStart()");
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "in onStop()");
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(TAG,"in onSaveInstanceState()");
+        savedInstanceState.putInt(IND,index);
+        savedInstanceState.putInt(SCORE,score);
 
     }
 }
