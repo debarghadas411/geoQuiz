@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button1;
     private Button button2;
     private Button next;
+    private Button cheat;
     private TextView tv;
     private int msgid;
     private Questions[] QBank=new Questions[]{
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private String TAG="WIAC";
     private String IND="INDEX";
     private String SCORE= "SCORE";
+    public static final String key="KEY";
+    public static final String show="SHOW";
+    private static final int CHEAT_CODE=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 ansCheck(false);
                 Toast.makeText(MainActivity.this,msgid,Toast.LENGTH_LONG).show();
                 QChange();
+            }
+        });
+        cheat=(Button)findViewById(R.id.b4);
+        cheat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent I=new Intent(MainActivity.this,CheatActivity.class);
+                I.putExtra(MainActivity.key,QBank[index-1].isAnswerTrue());
+                startActivityForResult(I,CHEAT_CODE);
             }
         });
 
@@ -121,5 +134,19 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt(IND,index);
         savedInstanceState.putInt(SCORE,score);
 
+    }
+    @Override
+    protected void onActivityResult(int rqc,int resc,Intent data){
+        if(resc!=RESULT_OK) return;
+        if(rqc==CHEAT_CODE){
+            if(data==null) return;
+            else{
+                boolean a=data.getBooleanExtra(MainActivity.show,false);
+                if(a==true){
+                    Toast.makeText(MainActivity.this,R.string.jtoast,Toast.LENGTH_LONG).show();
+                    QChange();
+                }
+            }
+        }
     }
 }

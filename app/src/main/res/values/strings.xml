@@ -15,5 +15,9 @@
     <string name="Q9">Arnab Chatterjee is a GANDU</string>
     <string name="Q10">Arnab Chatterjee is also known as Ritam\'s X</string>
     <string name="next">NEXT</string>
+    <string name="wtext">Are you sure you want to cheat?</string>
+    <string name="sabutton">SHOW</string>
+    <string name="cbutton">CHEAT!!</string>
+    <string name="jtoast">Cheating is wrong!!</string>
     <string name="finish">Thank You for Taking the QUIZ!! Now you know Arnab Chatterjee just like we do!!</string>
 </resources>
